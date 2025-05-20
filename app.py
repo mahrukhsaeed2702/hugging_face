@@ -3,8 +3,7 @@ import gradio as gr
 
 
 model = pipeline(
-    "summarization",
-)
+    "summarization", framework="pt")
 
 def predict(prompt):
     summary = model(prompt)[0]["summary_text"]

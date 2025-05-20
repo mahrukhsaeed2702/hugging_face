@@ -1,15 +1,13 @@
 from transformers import pipeline
 import gradio as gr
 
-
-model = pipeline(
-    "summarization", framework="pt")
+# Force framework to PyTorch (no TF/Keras dependency)
+model = pipeline("summarization", model="google-t5/t5-small", framework="pt")
 
 def predict(prompt):
     summary = model(prompt)[0]["summary_text"]
     return summary
 
-
-# create an interface for the model
+# Gradio interface
 with gr.Interface(predict, "textbox", "text") as interface:
     interface.launch()
